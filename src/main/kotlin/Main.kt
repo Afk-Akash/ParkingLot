@@ -1,6 +1,6 @@
 package org.parkingLot
 
-import org.parkingLot.models.VehicleFactory
+import org.parkingLot.models.vehicle.VehicleFactory
 
 fun main() {
     val factory = VehicleFactory()
