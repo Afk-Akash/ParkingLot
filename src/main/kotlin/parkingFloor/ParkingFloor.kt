@@ -1,8 +1,6 @@
-package org.example.parkingFloor
+package org.parkingLot.parkingFloor
 
-import org.example.models.VehicleBike
-import org.example.models.VehicleCar
-import org.example.models.VehicleType
+import org.parkingLot.models.vehicle.VehicleType
 
 class ParkingFloor(
     private val floorNumber: Int
@@ -12,22 +10,24 @@ class ParkingFloor(
     constructor(floorNumber: Int, bikeParkingSpot: Int, carParkingSpot: Int) : this(floorNumber) {
         val parkingSpots = mutableListOf<ParkingSpot>()
         for(i in 0 until bikeParkingSpot) {
-            parkingSpots.add(ParkingSpot(
+            parkingSpots.add(
+                ParkingSpot(
                 spotNumber = i,
                 floorNumber = this.floorNumber,
                 isOccupied = false,
-                vehicle = VehicleBike(),
                 spotType = VehicleType.BIKE
-            ))
+            )
+            )
         }
         for(i in 0 until carParkingSpot) {
-            parkingSpots.add(ParkingSpot(
+            parkingSpots.add(
+                ParkingSpot(
                 spotNumber = i,
                 floorNumber = this.floorNumber  ,
                 isOccupied = false,
-                vehicle = VehicleCar(),
                 spotType = VehicleType.CAR
-            ))
+            )
+            )
         }
         this.parkingSpots = parkingSpots
     }
