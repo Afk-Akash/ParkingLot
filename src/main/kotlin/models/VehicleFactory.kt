@@ -1,10 +1,10 @@
-package org.example.models
+package org.parkingLot.models
 
 class VehicleFactory {
-    fun getVehicle(type: String): VehicleMovement {
+    fun getVehicle(type: String, vrn: String): Vehicle {
         when (type ){
-            "Bike" -> return VehicleBike()
-            "Car" -> return VehicleCar()
+            "Bike" -> return VehicleBike(vrn)
+            "Car" -> return VehicleCar(vrn)
         }
         throw Error("Vehicle is neither car nor bike")
     }

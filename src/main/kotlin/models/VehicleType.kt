@@ -1,4 +1,4 @@
-package org.example.models
+package org.parkingLot.models
 
 enum class VehicleType {
     CAR,

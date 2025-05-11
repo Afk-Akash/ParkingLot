@@ -1,4 +1,4 @@
-package org.example.models
+package org.parkingLot.models
 
 interface VehicleMovement {
     fun move()

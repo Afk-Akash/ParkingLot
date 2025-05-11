@@ -1,6 +1,6 @@
-package org.example.models
+package org.parkingLot.models
 
-class VehicleCar: Vehicle(vehicleType = VehicleType.CAR), VehicleMovement{
+class VehicleCar(vrn: String): Vehicle(vehicleType = VehicleType.CAR, vrn){
     override fun move() {
         println("Car is moving")
     }
