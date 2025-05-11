@@ -1,4 +1,4 @@
-package org.parkingLot.models
+package org.parkingLot.models.vehicle
 
 open class Vehicle(
     val vehicleType: VehicleType,

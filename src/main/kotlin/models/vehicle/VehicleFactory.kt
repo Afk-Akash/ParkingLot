@@ -1,4 +1,4 @@
-package org.parkingLot.models
+package org.parkingLot.models.vehicle
 
 class VehicleFactory {
     fun getVehicle(type: String, vrn: String): Vehicle {
