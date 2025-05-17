@@ -1,6 +1,6 @@
 package org.parkingLot.parkingCore
 
-import org.parkingLot.models.ticket.ActiveTickets
+import org.parkingLot.models.ticket.TicketsInventory
 import org.parkingLot.models.ticket.ParkingTicket
 import org.parkingLot.models.vehicle.Vehicle
 import java.time.LocalDateTime
@@ -10,7 +10,7 @@ class CoreParkingSystem(
     private val parkingFloors: List<ParkingFloor>,
     val name: String
 ) {
-    fun parkVehicle(vehicle: Vehicle): Boolean {
+    fun parkVehicle(vehicle: Vehicle): ParkingTicket {
         parkingFloors.forEachIndexed { index, parkingFloor ->
             val availableParkingSpot = parkingFloor.freeSpot(vehicle.vehicleType)
 
@@ -26,14 +26,14 @@ class CoreParkingSystem(
                     isActive = true
                 )
                 availableParkingSpot.assignVehicle(vehicle)
-                ActiveTickets.activeTicket.plus(issueTicket)
-                println("CoreParkingSystem: Vehicle ${vehicle.vrn} is parked successfully at floor $parkingFloor " +
-                        "and spot no: ${availableParkingSpot.spotNumber}")
-                return true
+                TicketsInventory.activeTicket.add(issueTicket)
+                println("CoreParkingSystem: Vehicle ${vehicle.vrn} is parked successfully" +
+                        " at floor ${parkingFloor.floorNumber} and spot no: ${availableParkingSpot.spotNumber}")
+                return issueTicket
             }
         }
         println("Parking Lot is full for vehicle type: ${vehicle.vehicleType}")
-        return false
+        throw RuntimeException("Parking is full for vehicleType ${vehicle.vehicleType}")
     }
 
     fun unParkVehicle(ticket: ParkingTicket): Boolean {
@@ -45,6 +45,9 @@ class CoreParkingSystem(
         val parkingSpot = parkingFloor.getSpotById(parkingSpotNo)
 
         parkingSpot?.vacateSpot()
+        TicketsInventory.activeTicket.remove(ticket)
+        ticket.isActive = false
+        TicketsInventory.inActiveTicket.add(ticket)
         println("CoreParkingSystem: Vehicle with VRN ${ticket.vehicle.vrn} left the parking lot at ${LocalDateTime.now()}")
         return true
     }
@@ -62,7 +65,7 @@ class CoreParkingSystem(
     }
 
     private fun getTicketUsingVehicle(vehicle: Vehicle): ParkingTicket? {
-        ActiveTickets.activeTicket.forEach { parkingTicket ->
+        TicketsInventory.activeTicket.forEach { parkingTicket ->
             if(parkingTicket.vehicle == vehicle && parkingTicket.isActive){
                 return parkingTicket
             }

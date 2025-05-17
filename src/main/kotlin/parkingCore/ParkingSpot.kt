@@ -26,7 +26,6 @@ open class ParkingSpot(
         this.isOccupied = true
         this.vehicle = vehicle
 
-        println("Vehicle was parked successfully")
         return "Vehicle was parked successfully"
     }
 

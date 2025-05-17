@@ -3,7 +3,7 @@ package org.parkingLot.parkingCore
 import org.parkingLot.models.vehicle.VehicleType
 
 class ParkingFloor(
-    private val floorNumber: Int
+    val floorNumber: Int
 ) {
     private lateinit var parkingSpots: List<ParkingSpot>
 
@@ -21,7 +21,7 @@ class ParkingFloor(
         for(i in 0 until carParkingSpot) {
             parkingSpots.add(
                 ParkingSpot(
-                    spotNumber = i,
+                    spotNumber = i+bikeParkingSpot,
                     isOccupied = false,
                     spotType = VehicleType.CAR
                 )
