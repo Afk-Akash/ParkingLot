@@ -1,4 +1,4 @@
-package org.parkingLot.parkingFloor
+package org.parkingLot.parkingCore
 
 import org.parkingLot.models.vehicle.VehicleType
 
@@ -13,7 +13,6 @@ class ParkingFloor(
             parkingSpots.add(
                 ParkingSpot(
                 spotNumber = i,
-                floorNumber = this.floorNumber,
                 isOccupied = false,
                 spotType = VehicleType.BIKE
             )
@@ -22,20 +21,27 @@ class ParkingFloor(
         for(i in 0 until carParkingSpot) {
             parkingSpots.add(
                 ParkingSpot(
-                spotNumber = i,
-                floorNumber = this.floorNumber  ,
-                isOccupied = false,
-                spotType = VehicleType.CAR
-            )
+                    spotNumber = i,
+                    isOccupied = false,
+                    spotType = VehicleType.CAR
+                )
             )
         }
         this.parkingSpots = parkingSpots
     }
 
-    fun freeSpot(): ParkingSpot? {
+    fun freeSpot(vehicleType: VehicleType): ParkingSpot? {
         for(spot in parkingSpots) {
-            if(spot.isOccupied()) return spot
+            if(!spot.isOccupied() && spot.spotType == vehicleType) return spot
         }
+        return null
+    }
+
+    fun getSpotById(spotId: Int): ParkingSpot? {
+        for(spot in parkingSpots){
+            if(spot.spotNumber == spotId) return spot
+        }
+        println("This spotId does not belong to this floor")
         return null
     }
 }
