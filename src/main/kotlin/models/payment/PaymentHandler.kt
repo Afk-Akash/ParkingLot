@@ -1,8 +1,8 @@
 package org.parkingLot.models.payment
 
-import org.parkingLot.models.factory.PaymentFactory
+import org.parkingLot.factory.PaymentFactory
 import org.parkingLot.models.ticket.ParkingTicket
-import org.parkingLot.models.utils.FeeCalculator
+import org.parkingLot.utils.FeeCalculator
 import org.parkingLot.models.vehicle.VehicleBike
 import org.parkingLot.models.vehicle.VehicleCar
 import org.parkingLot.models.vehicle.VehicleType

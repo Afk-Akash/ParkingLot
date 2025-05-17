@@ -1,4 +1,4 @@
-package org.parkingLot.models.factory
+package org.parkingLot.factory
 
 import org.parkingLot.models.vehicle.Vehicle
 import org.parkingLot.models.vehicle.VehicleBike

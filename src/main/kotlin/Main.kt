@@ -1,10 +1,10 @@
 package org.parkingLot
 
-import org.parkingLot.models.utils.FeeCalculator
-import org.parkingLot.models.factory.PaymentFactory
+import org.parkingLot.utils.FeeCalculator
+import org.parkingLot.factory.PaymentFactory
 import org.parkingLot.models.payment.PaymentHandler
 import org.parkingLot.models.payment.PaymentUserInput
-import org.parkingLot.models.factory.VehicleFactory
+import org.parkingLot.factory.VehicleFactory
 import org.parkingLot.parkingCore.CoreParkingSystem
 import org.parkingLot.parkingCore.ParkingFloor
 

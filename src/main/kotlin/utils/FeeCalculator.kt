@@ -1,4 +1,4 @@
-package org.parkingLot.models.utils
+package org.parkingLot.utils
 
 import org.parkingLot.models.ticket.ParkingTicket
 import org.parkingLot.models.vehicle.VehicleBike

@@ -1,4 +1,4 @@
-package org.parkingLot.models.factory
+package org.parkingLot.factory
 
 import org.parkingLot.models.payment.CardPayment
 import org.parkingLot.models.payment.CashPayment
