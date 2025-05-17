@@ -29,11 +29,10 @@ open class ParkingSpot(
         return "Vehicle was parked successfully"
     }
 
-    fun vacateSpot() {
+    fun vacateSpot(floorNo: Int) {
         if(!this.isOccupied){
-            throw RuntimeException("This spot ${this.spotNumber} is already free to park")
+            throw RuntimeException("This spot ${this.spotNumber} at floor $floorNo is already free to park")
         }
-        println("ParkingSpot: parking spot with $spotNumber available now")
         this.isOccupied = false
         this.vehicle = null
     }

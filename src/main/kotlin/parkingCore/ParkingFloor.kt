@@ -40,7 +40,7 @@ class ParkingFloor(
     fun vacateSpot(parkingSpotId: Int) {
         val parkingSpot = this.parkingSpots[parkingSpotId]
         if(parkingSpot.isOccupied()){
-            parkingSpot.vacateSpot()
+            parkingSpot.vacateSpot(this.floorNumber)
             println("ParkingFloor: parking spot $parkingSpotId was successfully vacated on floor ${this.floorNumber}")
         }else{
             println("ParkingFloor: This parking spot is already vacated")

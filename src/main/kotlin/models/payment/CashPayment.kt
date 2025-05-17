@@ -2,9 +2,10 @@ package org.parkingLot.models.payment
 
 import java.math.BigDecimal
 
-class CardPayment: PaymentStrategy {
+
+class CashPayment: PaymentStrategy {
     override fun processPayment(amount: BigDecimal): Boolean {
-        println("initializing card payment for $amount")
+        println("cash received $amount")
         return true
     }
 }

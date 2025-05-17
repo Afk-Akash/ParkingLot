@@ -1,22 +1,29 @@
 package org.parkingLot.models.payment
 
+import org.parkingLot.models.factory.PaymentFactory
+import org.parkingLot.models.ticket.ParkingTicket
+import org.parkingLot.models.utils.FeeCalculator
+import org.parkingLot.models.vehicle.VehicleBike
+import org.parkingLot.models.vehicle.VehicleCar
+import org.parkingLot.models.vehicle.VehicleType
 import java.math.BigDecimal
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
-class PaymentHandler {
+class PaymentHandler(
+    val feeCalculator: FeeCalculator,
+    val userInput: PaymentUserInput,
+    val paymentFactory: PaymentFactory
+) {
+    fun process(ticket: ParkingTicket): Boolean {
+        val amount = feeCalculator.calculateFee(ticket)
+        println("Please pay ₹$amount")
+        val mode   = userInput.getUserPaymentChoice()
+        val strategy = paymentFactory.getPaymentStrategy(mode)
+        val success = PaymentService(strategy).pay(amount)
 
-    fun getUserPaymentChoice(): String {
-        println("Choose payment method: 1. card / 2. upi / 3. cash")
-        val input = readlnOrNull()
-        return input?.lowercase()?.trim() ?: ""
+        if (!success) println("Payment failed—please retry.")
+        return success
     }
 
-    fun paymentProcessor(amount: BigDecimal) {
-        val selectedPaymentMethod = getUserPaymentChoice()
-
-        when (selectedPaymentMethod) {
-            "1" -> PaymentService(amount, CardPayment())
-            "2" -> PaymentService(amount, UpiPayment())
-            else -> throw RuntimeException("Payment method was not selected properly")
-        }
-    }
 }
