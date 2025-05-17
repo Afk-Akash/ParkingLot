@@ -37,6 +37,16 @@ class ParkingFloor(
         return null
     }
 
+    fun vacateSpot(parkingSpotId: Int) {
+        val parkingSpot = this.parkingSpots[parkingSpotId]
+        if(parkingSpot.isOccupied()){
+            parkingSpot.vacateSpot()
+            println("ParkingFloor: parking spot $parkingSpotId was successfully vacated on floor ${this.floorNumber}")
+        }else{
+            println("ParkingFloor: This parking spot is already vacated")
+        }
+    }
+
     fun getSpotById(spotId: Int): ParkingSpot? {
         for(spot in parkingSpots){
             if(spot.spotNumber == spotId) return spot

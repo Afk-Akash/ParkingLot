@@ -4,6 +4,7 @@ import org.parkingLot.models.ticket.TicketsInventory
 import org.parkingLot.models.ticket.ParkingTicket
 import org.parkingLot.models.vehicle.Vehicle
 import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 import java.util.UUID
 
 class CoreParkingSystem(
@@ -15,7 +16,7 @@ class CoreParkingSystem(
             val availableParkingSpot = parkingFloor.freeSpot(vehicle.vehicleType)
 
             if(availableParkingSpot != null){
-                val currDateTime = LocalDateTime.now()
+                val currDateTime = LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)
                 val ticketId = UUID.randomUUID().toString()
                 val issueTicket = ParkingTicket(
                     ticketId = ticketId,
@@ -38,23 +39,22 @@ class CoreParkingSystem(
 
     fun unParkVehicle(ticket: ParkingTicket): Boolean {
         val parkingFloorNo = ticket.parkingFloorNo
-        val parkingSpotNo = ticket.parkingSpotNo
 
         val parkingFloor = parkingFloors[parkingFloorNo-1]
 
-        val parkingSpot = parkingFloor.getSpotById(parkingSpotNo)
+        parkingFloor.vacateSpot(ticket.parkingSpotNo)
 
-        parkingSpot?.vacateSpot()
         TicketsInventory.activeTicket.remove(ticket)
         ticket.isActive = false
         TicketsInventory.inActiveTicket.add(ticket)
-        println("CoreParkingSystem: Vehicle with VRN ${ticket.vehicle.vrn} left the parking lot at ${LocalDateTime.now()}")
+        println("CoreParkingSystem: Vehicle with VRN ${ticket.vehicle.vrn} left the parking " +
+                "lot at ${LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES)}")
         return true
     }
 
     fun unParkVehicle(vehicle: Vehicle): Boolean {
-        println("CoreParkingSystem: user has lost the ticket so searching vehicle with vehicle vrn ${vehicle.vrn} and " +
-                "type ${vehicle.vehicleType}")
+        println("CoreParkingSystem: user has lost the ticket so searching vehicle with vehicle vrn ${vehicle.vrn} and" +
+                " type ${vehicle.vehicleType}")
 
         val parkingTicket = getTicketUsingVehicle(vehicle)
         if(parkingTicket == null){

@@ -36,6 +36,6 @@ fun main() {
 //    }
 
     println("\nAfter un-parking, active tickets:")
-    println(TicketsInventory.activeTicket)
+    TicketsInventory.activeTicket.forEach { println(it) }
 
 }
